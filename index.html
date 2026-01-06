@@ -1,123 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Card</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Inter+Tight:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Kanit", sans-serif;
-        }
-        body{
-            background: url(latar.png);
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-        }
-        a{
-            text-decoration: none;
-        }
-        .container{
-            margin-top: 7%;
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-radius: 15px;
-            backdrop-filter: blur(20px);
-            background-image: linear-gradient(rgba(255, 255, 255, 0.2),rgba(255, 255, 255, 0.2), rgba(255, 0, 0, 0.2));
-            width: 320px;
-            height: 550px;
-        }
-        .profile-img {
-        margin-top: 55px;
-        display: block;  /* jangan flex */
-        height: auto;
-        width: 200px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Inter+Tight:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Kanit", sans-serif;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(latar.png) center/cover no-repeat fixed;
+}
+a { text-decoration: none; }
 
-        h1{
-            margin-top: 10px;
-            font-size: 10px;
-            color: white;
-        }
-        .button{
-            margin-top: 10px;
-        }
-        button{
-            background-image: url(button.jpg);
-            justify-content: center;
-            align-items: center;
-            margin-top: 8px;
-            display: flex;
-            height: 45px;
-            width: 250px;
-            color: rgb(255, 255, 255);
-            font-size: 15px;
-            border: none;
-            border-radius: 10px;
-            transition: all 0.2s ease;
-        }
-        button:active{
-            transform: scale(1.1);
-        }
-        h3{
-            margin-top: 40px;
-            font-size: 15px;
-            color: white;
-            text-align: center;
-            margin-bottom: 10px;
-            font-family: "Nunito Sans", sans-serif;
-        }
-        .acc{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 80%;
-            overflow: hidden;
-        }
-        .acc img{
-            display: inline-block;
-            margin: 5px;
-            height: 40px;
-            border-radius: 7px;
-            object-fit: contain; /* supaya logo tidak terdistorsi */
-        }
-    </style>
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    width: 320px;
+    padding: 20px;
+}
+
+.profile-img {
+    margin-top: 20px;
+    width: 230px;
+    height: auto;
+    display: block;
+}
+
+h1 {
+    margin-top: 10px;
+    font-size: 12px;
+    color: white;
+}
+
+/* ---------------- Tombol JPG ---------------- */
+.btn {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.btn-wrapper {
+    animation: fadeUp 0.45s ease forwards;
+    transform: translateY(12px);
+}
+
+.post-placeholder {
+    display: block;
+    position: relative;
+    width: 250px;   /* Lebar box tombol */
+    height: 30px;   /* Tinggi box tombol */
+    overflow: hidden;
+    background: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: transform 0.15s ease; /* klik scale */
+}
+
+.post-placeholder img,
+.post-placeholder .btn-text {
+    pointer-events: none; /* klik tetap ke <a> */
+}
+
+.post-placeholder img {
+    width: 100.5%;
+    height: 100%;      /* gambar memenuhi placeholder */
+    object-fit: cover;  /* agar proporsional */
+    border-radius: 8px;
+}
+
+.post-placeholder .btn-text {
+    font-family: "Nunito Sans", sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.post-placeholder:active {
+    transform: scale(0.9);
+}
+
+/* ---------------- Official Account ---------------- */
+h2 {
+    margin-top: 10px;
+    font-size: 13px;
+    color: white;
+    margin-bottom: 5px;
+    font-family: "Nunito Sans", sans-serif;
+    width: 80%;
+    text-align: left;
+}
+
+.acc {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 250px;
+    gap: 5px;
+}
+
+.acc a {
+    display: inline-block;
+    transition: transform 0.15s ease;
+}
+
+.acc a:active {
+    transform: scale(0.9);
+}
+
+.acc img {
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+}
+
+/* ---------------- Contact ---------------- */
+.contact-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.contact-img {
+    display: inline-block;
+    transition: transform 0.15s ease;
+}
+
+.contact-img:active {
+    transform: scale(0.9);
+}
+
+.contact-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* ---------------- Note ---------------- */
+.note-text {
+    max-width: 250px;
+    margin: 5px auto 0;
+    font-size: 10px;
+    color: #ffffff;
+    text-align: justify;
+    font-family: "Inter Tight", sans-serif;
+}
+
+/* ---------------- Animate ---------------- */
+.animate {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.45s ease forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <img src="LOGO SOKKY potrait.png" class="profile-img">
-        <h1>WELCOME TO OUR DIGITAL SPACE</h1>
-        <div class="button">
-            <a href="https://gacoraye.github.io/21rcphotography/"><button>PHOTOGRAPHY</button></a>
-            <a href="https://www.youtube.com/@sokkygb"><button>VIDEOGRAPHY</button></a>
-            <a href="https://www.instagram.com/sayesokky2"><button>GRAPHIC DESAIGNER</button></a>
+<div class="container animate">
+    <img src="LOGO SOKKY potrait.png" class="profile-img animate">
+    <h1 class="animate">WELCOME TO OUR DIGITAL SPACE</h1>
+
+    <!-- Tombol JPG -->
+    <div class="btn">
+        <div class="btn-wrapper animate">
+            <a class="post-placeholder" href="https://gacoraye.github.io/21rcphotography/">
+                <img src="button.jpg" alt="Button">
+                <span class="btn-text">Photo & Videography</span>
+            </a>
         </div>
-        <h3>Official account:</h3>
-        <div class="acc">
-            <a href="https://www.tiktok.com/@sayesokky2"><img src="logo1.png"></a>
-            <a href="https://www.tiktok.com/@sokkyje"><img src="logo2.png"></a>
-            <a href="https://www.tiktok.com/@sokkygb"><img src="logo3.png"></a>
-            <a href="https://www.youtube.com/@sayesokky"><img src="logo4.png"></a>
-            <a href="https://www.snackvideo.com/@sayesokky"><img src="logo5.png"></a>
-            <a href="https://www.facebook.com/sayesokky"><img src="logo6.png"></a>
-            <a href="https://soundcloud.com/sokkyalhasni"><img src="logo7.png"></a>
-            <a href="https://www.instagram.com/sokkyalhasni"><img src="logo8.png"></a>
-            <a href="https://www.instagram.com/sayesokky2"><img src="logo9.png"></a>
-            <a href="https://s.snackvideo.com/u/@sayesokky/pOejU7qo"><img src="logo10.png"></a>
+        <div class="btn-wrapper animate">
+            <a class="post-placeholder" href="https://www.instagram.com/p/DMYNK_4BjLb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
+                <img src="button.jpg" alt="Button">
+                <span class="btn-text">Graphic Designer</span>
+            </a>
+        </div>
+        <div class="btn-wrapper animate">
+            <a class="post-placeholder" href="https://gacoraye.github.io/sokkygacor888/">
+                <img src="button.jpg" alt="Button">
+                <span class="btn-text">Web Designer</span>
+            </a>
+        </div>
+        <div class="btn-wrapper animate">
+            <a class="post-placeholder" href="https://api.whatsapp.com/send?phone=62895600385284">
+                <img src="button.jpg" alt="Button">
+                <span class="btn-text">Rate Card Post & Story</span>
+            </a>
         </div>
     </div>
+
+    <!-- Official Account -->
+    <h2 class="animate">Official account:</h2>
+    <div class="acc animate">
+        <a href="https://www.tiktok.com/@sayesokky2"><img src="logo1.png" alt=""></a>
+        <a href="https://www.tiktok.com/@sokkyje"><img src="logo2.png" alt=""></a>
+        <a href="https://www.tiktok.com/@sokkygb"><img src="logo3.png" alt=""></a>
+        <a href="https://www.youtube.com/@sayesokky"><img src="logo4.png" alt=""></a>
+        <a href="https://www.snackvideo.com/@sayesokky"><img src="logo5.png" alt=""></a>
+        <a href="https://www.facebook.com/sayesokky"><img src="logo6.png" alt=""></a>
+        <a href="https://soundcloud.com/sokkyalhasni"><img src="logo7.png" alt=""></a>
+        <a href="https://www.instagram.com/sokkyalhasni"><img src="logo8.png" alt=""></a>
+        <a href="https://www.instagram.com/sayesokky2"><img src="logo9.png" alt=""></a>
+        <a href="https://s.snackvideo.com/u/@sayesokky/pOejU7qo"><img src="logo10.png" alt=""></a>
+    </div>
+
+    <!-- Note -->
+    <div class="note-text animate">
+        Note: Selain akun di atas, bukan tanggung jawab saya. Jika ada yang mengatasnamakan akun di atas atau nama saya pribadi, silakan laporkan ke kontak di bawah ini:
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-buttons animate">
+        <a class="contact-img" href="https://api.whatsapp.com/send?phone=62895600385284&text=Laporan%20SOKKY%20TEAM">
+            <img src="logo11.png" alt="WhatsApp">
+        </a>
+        <a class="contact-img" href="https://mail.google.com/mail/?view=cm&to=paparacing98@gmail.com&su=Laporan&body=SOKKY%20TEAM">
+            <img src="logo12.png" alt="Email">
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll('.animate');
+    items.forEach((el, i) => {
+        el.style.animationDelay = `${i * 0.08}s`;
+    });
+});
+</script>
 </body>
 </html>
