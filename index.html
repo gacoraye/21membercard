@@ -19,8 +19,13 @@ body {
     min-height: 100vh;
     background: url(latar.png) center/cover no-repeat fixed;
 }
-a { text-decoration: none; }
-
+a { text-decoration: none;
+}
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -30,22 +35,59 @@ a { text-decoration: none; }
     backdrop-filter: blur(10px);
     width: 320px;
     padding: 20px;
+    position: relative;
+    z-index: 1;
 }
+.container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: inherit;
+    background: conic-gradient(
+        from var(--angle),
+        #ff454500,
+        #ffffff,
+        #0a010100,
+        #ff0000,
+        #ff454500
+    );
+    animation: spin 3s linear infinite;
+    pointer-events: none;
+    -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
 
+    mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+
+}
+.container::before {
+    filter: blur(1.2rem);
+    opacity: 0.6;
+}
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
+}
 .profile-img {
     margin-top: 20px;
     width: 230px;
     height: auto;
     display: block;
 }
-
 h1 {
     margin-top: 10px;
     font-size: 12px;
     color: white;
 }
-
-/* ---------------- Tombol JPG ---------------- */
 .btn {
     display: flex;
     flex-direction: column;
@@ -53,33 +95,32 @@ h1 {
     gap: 5px;
     margin-top: 10px;
 }
-
 .btn-wrapper {
     animation: fadeUp 0.45s ease forwards;
     transform: translateY(12px);
 }
-
 .post-placeholder {
     display: block;
     position: relative;
-    width: 250px;   /* Lebar box tombol */
-    height: 30px;   /* Tinggi box tombol */
+    width: 250px;
+    height: 30px;
     cursor: pointer;
     border-radius: 10px;
-    transition: transform 0.15s ease; /* klik scale */
+    transition: transform 0.15s ease;
     background: url("button.jpg")
 }
-
+.post-placeholder:active {
+    background-image: url("buttonoff.jpg");
+}
 .post-placeholder img,
 .post-placeholder .btn-text {
-    pointer-events: none; /* klik tetap ke <a> */
+    pointer-events: none;
 }
 .post-placeholder img {
     width: 100%;
     height: 100%;
     pointer-events: none;
 }
-
 .post-placeholder .btn-text {
     font-family: "Nunito Sans", sans-serif;
     position: absolute;
@@ -91,12 +132,12 @@ h1 {
     text-align: center;
     pointer-events: none;
 }
-
-.post-placeholder:active {
-    transform: scale(0.95);
+.post-placeholder:active::after {
+    opacity: 1;
 }
-
-/* ---------------- Official Account ---------------- */
+.post-placeholder:active .btn-text {
+    color: #ff0000;
+}
 h2 {
     margin-top: 10px;
     font-size: 13px;
@@ -106,30 +147,35 @@ h2 {
     width: 80%;
     text-align: left;
 }
-
 .acc {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     width: 250px;
     gap: 5px;
 }
-
-.acc a {
-    display: inline-block;
-    transition: transform 0.15s ease;
-}
-
-.acc a:active {
-    transform: scale(0.95);
-}
-
 .acc img {
     width: 100%;
     height: auto;
+    display: block;
     pointer-events: none;
 }
-
-/* ---------------- Contact ---------------- */
+.acc a {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.acc a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.15s ease;
+    pointer-events: none;
+}
+.acc a:active::after {
+    background: rgba(0, 0, 0, 0.9);
+}
 .contact-buttons {
     display: flex;
     justify-content: center;
@@ -138,24 +184,19 @@ h2 {
     margin-top: 10px;
     margin-bottom: 20px;
 }
-
 .contact-img {
     display: inline-block;
     transition: transform 0.15s ease;
 }
-
 .contact-img:active {
     transform: scale(0.95);
 }
-
 .contact-img img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     pointer-events: none;
 }
-
-/* ---------------- Note ---------------- */
 .note-text {
     max-width: 250px;
     margin: 5px auto 0;
@@ -164,14 +205,11 @@ h2 {
     text-align: justify;
     font-family: "Inter Tight", sans-serif;
 }
-
-/* ---------------- Animate ---------------- */
 .animate {
     opacity: 0;
     transform: translateY(12px);
-    animation: fadeUp 0.45s ease forwards;
+    animation: fadeUp 2s ease forwards;
 }
-
 @keyframes fadeUp {
     to {
         opacity: 1;
@@ -184,8 +222,6 @@ h2 {
 <div class="container animate">
     <img src="LOGO SOKKY potrait.png" class="profile-img animate">
     <h1 class="animate">WELCOME TO OUR DIGITAL SPACE</h1>
-
-    <!-- Tombol JPG -->
     <div class="btn">
         <div class="btn-wrapper animate">
             <a class="post-placeholder" href="https://gacoraye.github.io/21rcphotography/" alt="Button">
@@ -208,7 +244,6 @@ h2 {
             </a>
         </div>
     </div>
-
     <!-- Official Account -->
     <h2 class="animate">Official account:</h2>
     <div class="acc animate">
@@ -223,13 +258,9 @@ h2 {
         <a href="https://www.instagram.com/sayesokky2"><img src="logo9.png" alt=""></a>
         <a href="https://l.likee.video/p/eRMa0Z"><img src="logo10.png" alt=""></a>
     </div>
-
-    <!-- Note -->
     <div class="note-text animate">
         Note: Selain akun di atas, bukan tanggung jawab saya. Jika ada yang mengatasnamakan akun di atas atau nama saya pribadi, silakan laporkan ke kontak di bawah ini:
     </div>
-
-    <!-- Contact -->
     <div class="contact-buttons animate">
         <a class="contact-img" href="https://api.whatsapp.com/send?phone=62895600385284&text=Laporan%20SOKKY%20TEAM">
             <img src="logo11.png" alt="WhatsApp">
@@ -239,7 +270,6 @@ h2 {
         </a>
     </div>
 </div>
-
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const items = document.querySelectorAll('.animate');
